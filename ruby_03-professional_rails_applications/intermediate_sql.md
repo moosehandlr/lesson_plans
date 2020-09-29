@@ -205,6 +205,12 @@ arugula salad | lunch
 arugula salad | vegetarian
 (4 rows)
 ```
+```sql
+SELECT items.name, categories.name FROM items 
+INNER JOIN item_categories ON items.id = item_categories.item_id 
+INNER JOIN categories ON categories.id = item_categories.category_id 
+WHERE items.name = 'arugula salad';
+```
 
 Can you change the column headings?
 
@@ -217,7 +223,12 @@ arugula salad | lunch
 arugula salad | vegetarian
 (4 rows)
 ```
-
+```sql
+SELECT items.name as item_name, categories.name as category_name FROM items 
+INNER JOIN item_categories ON items.id = item_categories.item_id 
+INNER JOIN categories ON categories.id = item_categories.category_id 
+WHERE items.name = 'arugula salad';
+```
 #### OUTER JOINS
 
 To illustrate a LEFT OUTER JOIN we'll add a few records without a `season_id`.
@@ -284,7 +295,22 @@ What do you think a `RIGHT OUTER JOIN` will do?
 
 * Write a query to test your guess.
 * Insert data into the right table that will not get returned on an `INNER JOIN`.
-
+```sql
+SELECT *
+FROM items i
+RIGHT OUTER JOIN seasons s
+ON i.season_id = s.id;
+ id |         name         | revenue | season_id | id |  name  
+----+----------------------+---------+-----------+----+--------
+  6 | hot dog              |    1000 |         1 |  1 | summer
+  2 | veggie lasagna       |    1000 |         1 |  1 | summer
+  3 | striped bass         |     500 |         1 |  1 | summer
+  4 | burger               |    2000 |         1 |  1 | summer
+  7 | arugula salad        |    1100 |         2 |  2 | autumn
+  1 | lobster mac n cheese |    1200 |         3 |  3 | winter
+  5 | grilled cheese       |     800 |         4 |  4 | spring
+(7 rows)
+```
 ### Subqueries
 
 Sometimes you want to run a query based on the result of another query. Enter subqueries. Let's say I want to return all items with above average revenue. Two things need to happen:
@@ -320,7 +346,10 @@ id |         name         | revenue | season_id
 
 
 1. Without looking at the previous solution, write a `WHERE` clause that returns the items that have a revenue less than the average revenue.
-
+```sql 
+SELECT * FROM items
+WHERE revenue < (SELECT avg(revenue) FROM items);
+```
 ### Additional Challenges
 
 * Write a query that returns the sum of all items that have a category of dinner.
