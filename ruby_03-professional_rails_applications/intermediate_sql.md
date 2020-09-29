@@ -65,8 +65,8 @@ Let's create an item that has all NULL values:
 `INSERT into items (name, revenue, course) VALUES (NULL, NULL, NULL);`
 
 Typically you `count` records in a table by counting on the `id` column, like `SELECT COUNT(id) FROM items;`. However, it's not necessary for a table to have an `id` column. What else can you pass to `count` and still get `5` as your result?   
-    >SELECT count(id) FROM items;   
-    >SELECT count(*) FROM items;
+ >SELECT count(id) FROM items;   
+ >SELECT count(*) FROM items;
 
 #### Building on Aggregate Functions
 
